@@ -17,11 +17,16 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+import org.springframework.beans.factory.annotation.Value;
 import java.util.Arrays;
+import java.util.List;
 
 @Configuration
 @EnableMethodSecurity
 public class SecurityConfig {
+
+    @Value("${app.allowed-origins:http://localhost:5173,http://127.0.0.1:5173}")
+    private List<String> allowedOrigins;
 
     @Autowired
     private UserDetailsServiceImpl userDetailsService;
@@ -71,16 +76,7 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOriginPatterns(Arrays.asList(
-                "http://localhost:*",
-                "http://*.localhost:*",
-                "http://*.localhost:5173",
-                "https://*.slack-clone.com",
-                "http://bytechat.com:*",
-                "http://*.bytechat.com:*",
-                "https://bytechat.com:*",
-                "https://*.bytechat.com:*"
-        ));
+        configuration.setAllowedOriginPatterns(allowedOrigins);
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
         configuration
                 .setAllowedHeaders(Arrays.asList("authorization", "content-type", "x-auth-token", "x-tenant-slug"));
