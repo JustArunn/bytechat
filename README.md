@@ -93,9 +93,9 @@ bytechat/
 
 ## 🌍 Deployment
 
-For production deployment instructions, including AWS setup, please refer to:
+For production deployment instructions, including AWS, Azure, and GCP setup, please refer to:
 - [DEPLOYMENT.md](./DEPLOYMENT.md)
-- [AWS_DEPLOYMENT.md](./AWS_DEPLOYMENT.md)
+- [CLOUD_DEPLOYMENT.md](./CLOUD_DEPLOYMENT.md)
 
 ---
 
