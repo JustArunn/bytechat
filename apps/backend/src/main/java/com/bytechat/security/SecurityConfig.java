@@ -78,7 +78,8 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOriginPatterns(allowedOrigins);
+        // Modern Spring Boot way to allow all origins when allowCredentials is true
+        configuration.addAllowedOriginPattern("*");
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
         configuration
                 .setAllowedHeaders(Arrays.asList("authorization", "content-type", "x-auth-token", "x-tenant-slug"));
