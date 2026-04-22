@@ -1,4 +1,4 @@
-package com.slack;
+package com.bytechat;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
