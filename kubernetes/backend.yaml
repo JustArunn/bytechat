@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bytechat-backend
+  namespace: bytechat
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: bytechat-backend
+  template:
+    metadata:
+      labels:
+        app: bytechat-backend
+    spec:
+      containers:
+      - name: backend
+        image: bytechat-backend:latest # Replace with registry URL in prod
+        ports:
+        - containerPort: 8080
+        envFrom:
+        - configMapRef:
+            name: bytechat-config
+        - secretRef:
+            name: bytechat-secrets
+        resources:
+          limits:
+            cpu: "500m"
+            memory: "1024Mi"
+          requests:
+            cpu: "250m"
+            memory: "512Mi"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: bytechat-backend
+  namespace: bytechat
+spec:
+  selector:
+    app: bytechat-backend
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+  type: ClusterIP

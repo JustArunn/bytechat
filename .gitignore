@@ -1,0 +1,31 @@
+# Monorepo .gitignore
+
+# Common
+node_modules/
+dist/
+build/
+.env
+.env.*
+.vscode/
+.idea/
+*.log
+
+# Backend (Java/Maven)
+target/
+*.class
+*.jar
+*.war
+*.ear
+.mvn/wrapper/maven-wrapper.jar
+.metadata/
+bin/
+tmp/
+
+# Frontend (React/Vite)
+public/mockServiceWorker.js
+.eslintcache
+.stylelintcache
+
+# OS
+.DS_Store
+Thumbs.db

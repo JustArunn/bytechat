@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: bytechat-config
+  namespace: bytechat
+data:
+  SPRING_DATASOURCE_URL: "jdbc:postgresql://postgres-service:5432/bytechat"
+  VITE_API_URL: "http://bytechat-backend:8080"
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: bytechat-secrets
+  namespace: bytechat
+type: Opaque
+data:
+  # Base64 encoded values (Example: 'postgres' -> 'cG9zdGdyZXM=')
+  SPRING_DATASOURCE_PASSWORD: cG9zdGdyZXM=
+  JWT_SECRET: bXktc3VwZXItc2VjcmV0LWtleS1mb3Itand0LWJ5dGVjaGF0LXByb2R1Y3Rpb24=

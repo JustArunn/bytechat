@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ByteChat</title>
+    <script>
+      (function() {
+        try {
+          const saved = localStorage.getItem('theme');
+          const root = document.documentElement;
+          root.classList.remove('light', 'dark');
+          
+          if (saved === 'dark' || saved === 'light') {
+            root.classList.add(saved);
+          } else {
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            root.classList.add(prefersDark ? 'dark' : 'light');
+          }
+        } catch (e) {}
+        
+        if (window.global === undefined) {
+          window.global = window;
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

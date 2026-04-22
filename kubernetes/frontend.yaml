@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bytechat-frontend
+  namespace: bytechat
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: bytechat-frontend
+  template:
+    metadata:
+      labels:
+        app: bytechat-frontend
+    spec:
+      containers:
+      - name: frontend
+        image: bytechat-frontend:latest # Replace with registry URL in prod
+        ports:
+        - containerPort: 80
+        env:
+        - name: VITE_API_URL
+          valueFrom:
+            configMapKeyRef:
+              name: bytechat-config
+              key: VITE_API_URL
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: bytechat-frontend
+  namespace: bytechat
+spec:
+  selector:
+    app: bytechat-frontend
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+  type: LoadBalancer
