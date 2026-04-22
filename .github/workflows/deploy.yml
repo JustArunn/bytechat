@@ -31,5 +31,11 @@ jobs:
             git pull origin main
           fi
           
+          # Inject production secrets into .env
+          echo "JWT_SECRET=${{ secrets.JWT_SECRET }}" > .env
+          echo "SPRING_DATASOURCE_USERNAME=${{ secrets.SPRING_DATASOURCE_USERNAME }}" >> .env
+          echo "SPRING_DATASOURCE_PASSWORD=${{ secrets.SPRING_DATASOURCE_PASSWORD }}" >> .env
+          echo "ALLOWED_ORIGINS=${{ secrets.ALLOWED_ORIGINS }}" >> .env
+          
           docker-compose -f docker-compose.prod.yml up -d --build
           docker image prune -f
