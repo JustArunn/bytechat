@@ -9,6 +9,9 @@ jobs:
   deploy:
     name: Deploy to Cloud VM (AWS/Azure/GCP)
     runs-on: ubuntu-latest
+    environment:
+      name: production
+      url: https://bytechats.duckdns.org
     if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
 
     steps:
