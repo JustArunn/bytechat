@@ -38,8 +38,8 @@ jobs:
           echo "JWT_SECRET=${{ secrets.JWT_SECRET }}" > .env
           echo "SPRING_DATASOURCE_USERNAME=${{ secrets.SPRING_DATASOURCE_USERNAME }}" >> .env
           echo "SPRING_DATASOURCE_PASSWORD=${{ secrets.SPRING_DATASOURCE_PASSWORD }}" >> .env
-          echo "ALLOWED_ORIGINS=http://bytechats.duckdns.org,https://bytechats.duckdns.org" >> .env
-          echo "VITE_API_URL=http://bytechats.duckdns.org" >> .env
+          echo "ALLOWED_ORIGINS=${{ secrets.ORIGIN }}" >> .env
+          echo "VITE_API_URL=${{ secrets.ORIGIN }}" >> .env
           
           # Force restart with new configuration
           docker-compose -f docker-compose.prod.yml down
