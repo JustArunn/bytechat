@@ -23,13 +23,13 @@ jobs:
         key: ${{ secrets.DEPLOY_SSH_KEY }}
         port: 22
         script: |
-          cd /home/${{ secrets.DEPLOY_USER }}/bytechat
+          mkdir -p ~/bytechat
+          cd ~/bytechat
+          if [ ! -d .git ]; then
+            git clone https://github.com/${{ github.repository }} .
+          else
+            git pull origin main
+          fi
           
-          # Pull latest changes
-          git pull origin main
-          
-          # Rebuild and restart services using production config
           docker-compose -f docker-compose.prod.yml up -d --build
-          
-          # Clean up unused images and containers
           docker image prune -f
