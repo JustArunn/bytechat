@@ -42,7 +42,7 @@ export const registerPushNotifications = async () => {
     const p256dh = btoa(String.fromCharCode.apply(null, new Uint8Array(subscription.getKey('p256dh')!) as any));
     const auth = btoa(String.fromCharCode.apply(null, new Uint8Array(subscription.getKey('auth')!) as any));
 
-    await axios.post('http://localhost:8080/api/notifications/push/subscribe', {
+    await axios.post(`${import.meta.env.VITE_API_URL || 'http://localhost:8080'}/api/notifications/push/subscribe`, {
       endpoint: subscription.endpoint,
       p256dh,
       auth

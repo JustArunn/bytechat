@@ -31,7 +31,7 @@ export const WebSocketProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     if (!user) return;
 
     const client = new Client({
-      webSocketFactory: () => new SockJS('http://localhost:8080/ws', null, { withCredentials: true } as any),
+      webSocketFactory: () => new SockJS(`${import.meta.env.VITE_API_URL || 'http://localhost:8080'}/ws`, null, { withCredentials: true } as any),
       reconnectDelay: 5000,
       heartbeatIncoming: 4000,
       heartbeatOutgoing: 4000,

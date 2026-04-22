@@ -25,10 +25,13 @@ jobs:
         script: |
           mkdir -p ~/bytechat
           cd ~/bytechat
+          
+          # Force sync with GitHub (prevents pull conflicts)
           if [ ! -d .git ]; then
             git clone https://github.com/${{ github.repository }} .
           else
-            git pull origin main
+            git fetch origin main
+            git reset --hard origin/main
           fi
           
           # Inject production secrets into .env
@@ -36,6 +39,9 @@ jobs:
           echo "SPRING_DATASOURCE_USERNAME=${{ secrets.SPRING_DATASOURCE_USERNAME }}" >> .env
           echo "SPRING_DATASOURCE_PASSWORD=${{ secrets.SPRING_DATASOURCE_PASSWORD }}" >> .env
           echo "ALLOWED_ORIGINS=${{ secrets.ALLOWED_ORIGINS }}" >> .env
+          echo "VITE_API_URL=${{ secrets.VITE_API_URL }}" >> .env
           
+          # Force restart with new configuration
+          docker-compose -f docker-compose.prod.yml down
           docker-compose -f docker-compose.prod.yml up -d --build
           docker image prune -f
